@@ -19,6 +19,14 @@ public class PSRequestAdapter: RequestInterceptor {
             return completion(.failure(PSApiError.unauthorized()))
         }
         
+        print("======================")
+        print("Will adapt request \(urlRequest.url?.absoluteString)")
+        print("\n")
+        print(token)
+        print("\n")
+        print(headers?.headers)
+        print("======================")
+        
         var urlRequest = urlRequest
         urlRequest.headers.add(.authorization(bearerToken: token))
         

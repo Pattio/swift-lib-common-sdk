@@ -97,6 +97,7 @@ open class PSBaseApiClient {
                     message: "--> \(urlRequest.url!.absoluteString)",
                     request: urlRequest
                 )
+                print("Will execute request \(urlRequest.url!.absoluteString)")
                 
                 self.session
                     .request(apiRequest.requestEndPoint)
@@ -113,13 +114,14 @@ open class PSBaseApiClient {
         with urlRequest: URLRequest
     ) {
         guard let urlResponse = response.response else {
+            print("Missing url response")
             return handleMissingUrlResponse(for: apiRequest, with: response.error)
         }
         
         let responseData = try? response.result.get()
         let statusCode = urlResponse.statusCode
         let logMessage = "<-- \(urlRequest.url!.absoluteString) \(statusCode)"
-        
+        print("Received response for \(urlRequest.url!.absoluteString) \(statusCode)")
         if 200 ... 299 ~= statusCode {
             logger?.log(
                 level: .DEBUG,
